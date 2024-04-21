@@ -4,9 +4,15 @@
  */
 package com.cbt.split.user.api;
 
+import com.cbt.split.user.domain.UserEntity;
+import com.cbt.split.user.service.UserWritePlatformService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,9 +22,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UsersApi {
 
-    @PostMapping()
-    public String createUser() {
-        return "User Create Successfully...";
+    @Autowired
+    private UserWritePlatformService userWritePlatformService;
+
+//    @Autowired
+//    public UsersApi(UserWritePlatformService userWritePlatformService) {
+//        this.userWritePlatformService = userWritePlatformService;
+//    }
+    @PostMapping("/user")
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userData) {
+        try {
+            UserEntity user = this.userWritePlatformService.createUser(userData);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/userId")
@@ -30,12 +48,10 @@ public class UsersApi {
     public String getAllUser() {
         return "Get Users Successfully...";
     }
-    
+
     @GetMapping("/userId")
-    public String getUser(){
+    public String getUser() {
         return "Get User Successfully...";
     }
-    
-    
 
 }
