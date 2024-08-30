@@ -33,7 +33,7 @@ public class SplitGroupWritePlatformServiceImpl implements SplitGroupWritePlatfo
         String groupName = command.stringValueOfParameterNamed("groupName");
         String groupDesc = command.stringValueOfParameterNamed("groupDesc");
         Long memberSlabs = command.longValueOfParameterNamed("memberSlabs");
-
+        System.out.println(groupName + " " + groupDesc + "" + memberSlabs);
         JsonArray groupMembers = command.arrayOfParameterNamed("groupMembers");
 
         groupMembers.forEach(member -> {
