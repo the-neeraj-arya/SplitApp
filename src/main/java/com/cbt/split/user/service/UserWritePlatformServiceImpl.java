@@ -4,7 +4,7 @@
  */
 package com.cbt.split.user.service;
 
-import com.cbt.split.user.domain.UserEntity;
+import com.cbt.split.user.domain.User;
 import com.cbt.split.user.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,18 +25,18 @@ public class UserWritePlatformServiceImpl implements UserWritePlatformService {
     }
 
     @Override
-    public UserEntity createUser(UserEntity user) {
-        System.out.println("" + user.getFirst_name() + "" + user.getLast_name() + "" + user.getDate_of_birth());
-        UserEntity userEntity = new UserEntity();
-        userEntity.setLast_name(user.getLast_name());
-        userEntity.setFirst_name(user.getFirst_name());
-        userEntity.setGender(user.getGender());
-        userEntity.setDate_of_birth(user.getDate_of_birth());
-        userEntity.setAddress(user.getAddress());
-        userEntity.setPhone_no(user.getPhone_no());
-        userEntity.setUser_name(user.getUser_name());
-        userEntity.setPassword(user.getPassword());
-        this.userRepository.save(userEntity);
+    public User createUser(User user) {
+//        System.out.println("" + user.getFirst_name() + "" + user.getLast_name() + "" + user.getDate_of_birth());
+//        UserEntity userEntity = new UserEntity();
+//        userEntity.setLast_name(user.getLast_name());
+//        userEntity.setFirst_name(user.getFirst_name());
+//        userEntity.setGender(user.getGender());
+//        userEntity.setDate_of_birth(user.getDate_of_birth());
+//        userEntity.setAddress(user.getAddress());
+//        userEntity.setPhone_no(user.getPhone_no());
+//        userEntity.setUser_name(user.getUser_name());
+//        userEntity.setPassword(user.getPassword());
+//        this.userRepository.save(userEntity);
         System.out.println("Create User........." + user);
         return null;
     }

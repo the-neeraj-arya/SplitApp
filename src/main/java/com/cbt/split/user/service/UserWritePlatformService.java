@@ -4,7 +4,7 @@
  */
 package com.cbt.split.user.service;
 
-import com.cbt.split.user.domain.UserEntity;
+import com.cbt.split.user.domain.User;
 
 /**
  *
@@ -12,6 +12,6 @@ import com.cbt.split.user.domain.UserEntity;
  */
 public interface UserWritePlatformService {
 
-    public UserEntity createUser(UserEntity used);
+    public User createUser(User used);
 
 }

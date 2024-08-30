@@ -21,11 +21,11 @@ public class SplitGroupRepositoryWrapper {
         this.splitGroupRepository = splitGroupRepository;
     }
 
-    public void save(final SplitGroupEntity splitGroupEntity) {
+    public void save(final Group splitGroupEntity) {
         this.splitGroupRepository.save(splitGroupEntity);
     }
 
-    public void delete(final SplitGroupEntity splitGroupEntity) {
+    public void delete(final Group splitGroupEntity) {
         this.splitGroupRepository.delete(splitGroupEntity);
     }
 

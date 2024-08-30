@@ -4,7 +4,7 @@
  */
 package com.cbt.split.group.service;
 
-import com.cbt.split.group.domain.SplitGroupEntity;
+import com.cbt.split.Json.JsonCommand;
 
 /**
  *
@@ -12,6 +12,6 @@ import com.cbt.split.group.domain.SplitGroupEntity;
  */
 public interface SplitGroupWritePlatformService {
     
-    public SplitGroupEntity createGroup(SplitGroupEntity data);
+    public void createGroup(JsonCommand command);
     
 }

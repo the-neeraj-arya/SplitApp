@@ -4,8 +4,11 @@
  */
 package com.cbt.split.group.service;
 
-import com.cbt.split.group.domain.SplitGroupEntity;
+import com.cbt.split.Json.JsonCommand;
+import com.cbt.split.group.data.GroupData;
+import com.cbt.split.group.domain.Group;
 import com.cbt.split.group.domain.SplitGroupRepository;
+import com.google.gson.JsonArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class SplitGroupWritePlatformServiceImpl implements SplitGroupWritePlatformService {
 
     private final SplitGroupRepository splitGroupRepository;
-//    private final SplitGroupEntity splitGroupEntity;
+//    private final SplitGroupEntity groupEntity;
 
     @Autowired
     public SplitGroupWritePlatformServiceImpl(SplitGroupRepository splitGroupRepository) {
@@ -25,17 +28,24 @@ public class SplitGroupWritePlatformServiceImpl implements SplitGroupWritePlatfo
     }
 
     @Override
-    public SplitGroupEntity createGroup(SplitGroupEntity data) {
-        System.out.println("" + data.getGroupName() + "" + data.getGroupMember() + "" + data.getUserName());
-        SplitGroupEntity splitGroupEntity = new SplitGroupEntity();
-        splitGroupEntity.setGroupName(data.getGroupName());
-        splitGroupEntity.setUserName(data.getUserName());
-        splitGroupEntity.setGroupMember(data.getGroupMember());
-        splitGroupEntity.setAmt(data.getAmt());
-        splitGroupEntity.setAmtDetail(data.getAmtDetail());
-        splitGroupEntity.setDate(data.getDate());
-        splitGroupEntity.setRemark(data.getRemark());
-        this.splitGroupRepository.save(splitGroupEntity);
-        return null;
+    public void createGroup(JsonCommand command) {
+
+        String groupName = command.stringValueOfParameterNamed("groupName");
+        String groupDesc = command.stringValueOfParameterNamed("groupDesc");
+        Long memberSlabs = command.longValueOfParameterNamed("memberSlabs");
+
+        JsonArray groupMembers = command.arrayOfParameterNamed("groupMembers");
+
+        groupMembers.forEach(member -> {
+            String memberName = member.getAsJsonObject().get("memberName").getAsString();
+            System.out.println("Member Name: " + memberName);
+        });
+//
+//        System.out.println("" + groupData.getName() + "" + groupData.getDesc() + "" + groupData.getMemberSlab());
+//        Group groupEntity = new Group();
+//        groupEntity.setName(groupData.getName());
+//        groupEntity.setDescription(groupData.getDesc());
+//        groupEntity.setMember(Integer.parseInt(groupData.getMemberSlab()));
+//        this.splitGroupRepository.save(groupEntity);
     }
 }

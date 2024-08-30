@@ -13,16 +13,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserRepositoryWrapper {
-    
+
     private final UserRepository userRepository;
 
     @Autowired
     public UserRepositoryWrapper(final UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    
-    public void save(UserEntity userData){
+
+    public void save(User userData) {
         this.userRepository.save(userData);
     }
-    
+
 }

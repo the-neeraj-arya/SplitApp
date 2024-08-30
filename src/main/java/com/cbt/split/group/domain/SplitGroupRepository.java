@@ -10,6 +10,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author neeraj
  */
-public interface SplitGroupRepository extends CrudRepository<SplitGroupEntity,Integer> {
-    
+public interface SplitGroupRepository extends CrudRepository<Group, Integer> {
+
 }
