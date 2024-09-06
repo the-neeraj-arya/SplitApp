@@ -5,10 +5,13 @@
 package com.cbt.split.group.service;
 
 import com.cbt.split.Json.JsonCommand;
-import com.cbt.split.group.data.GroupData;
 import com.cbt.split.group.domain.Group;
-import com.cbt.split.group.domain.SplitGroupRepository;
+import com.cbt.split.group.domain.GroupMember;
+import com.cbt.split.group.domain.GroupRepository;
+import com.cbt.split.group.domain.Members;
 import com.google.gson.JsonArray;
+import java.time.LocalDateTime;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +22,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class SplitGroupWritePlatformServiceImpl implements SplitGroupWritePlatformService {
 
-    private final SplitGroupRepository splitGroupRepository;
-//    private final SplitGroupEntity groupEntity;
+    private final GroupRepository groupRepository;
+    Date date = new Date();
 
     @Autowired
-    public SplitGroupWritePlatformServiceImpl(SplitGroupRepository splitGroupRepository) {
-        this.splitGroupRepository = splitGroupRepository;
+    public SplitGroupWritePlatformServiceImpl(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
     }
 
     @Override
@@ -32,20 +35,28 @@ public class SplitGroupWritePlatformServiceImpl implements SplitGroupWritePlatfo
 
         String groupName = command.stringValueOfParameterNamed("groupName");
         String groupDesc = command.stringValueOfParameterNamed("groupDesc");
-        Long memberSlabs = command.longValueOfParameterNamed("memberSlabs");
+        Integer memberSlabs = command.IntegerValueOfParameterNamed("memberSlabs");
         System.out.println(groupName + " " + groupDesc + "" + memberSlabs);
+
         JsonArray groupMembers = command.arrayOfParameterNamed("groupMembers");
+
+        Group groupEntity = new Group();
+        groupEntity.setName(groupName);
+        groupEntity.setDescription(groupDesc);
+        groupEntity.setCreatedBy(1);
+        groupEntity.setCreatedAt(LocalDateTime.now());
+        System.out.println(groupName + " " + groupDesc + " " + memberSlabs + " " + LocalDateTime.now());
+        this.groupRepository.save(groupEntity);
 
         groupMembers.forEach(member -> {
             String memberName = member.getAsJsonObject().get("memberName").getAsString();
             System.out.println("Member Name: " + memberName);
+
+            Members groupMemberEntity = new Members();
+            groupMemberEntity.setMemberName(memberName);
+            groupMemberEntity.setJoinedAt(LocalDateTime.now());
+            groupEntity.addMembers(groupMemberEntity);
         });
-//
-//        System.out.println("" + groupData.getName() + "" + groupData.getDesc() + "" + groupData.getMemberSlab());
-//        Group groupEntity = new Group();
-//        groupEntity.setName(groupData.getName());
-//        groupEntity.setDescription(groupData.getDesc());
-//        groupEntity.setMember(Integer.parseInt(groupData.getMemberSlab()));
-//        this.splitGroupRepository.save(groupEntity);
+        groupRepository.save(groupEntity);
     }
 }

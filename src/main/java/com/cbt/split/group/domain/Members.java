@@ -4,7 +4,6 @@
  */
 package com.cbt.split.group.domain;
 
-import com.cbt.split.user.domain.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,31 +19,31 @@ import java.time.LocalDateTime;
  * @author neeraj
  */
 @Entity
-@Table(name = "s_group_members")
-public class GroupMember {
+@Table(name = "s_members")
+public class Members {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JoinColumn(name = "group_id", nullable = false)
-    private Integer groupId;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User userId;
+    @Column(name = "member_name", nullable = false)
+    private String memberName;
 
     @Column(name = "joined_at", nullable = false)
     private LocalDateTime joinedAt;
 
-    public GroupMember() {
+    @ManyToOne
+    @JoinColumn(name = "group_id", nullable = false)
+    private Group group;
+
+    public Members() {
     }
 
-    public GroupMember(Long id, Integer groupId, User userId, LocalDateTime joinedAt) {
+    public Members(Long id, String memberName, LocalDateTime joinedAt, Group group) {
         this.id = id;
-        this.groupId = groupId;
-        this.userId = userId;
+        this.memberName = memberName;
         this.joinedAt = joinedAt;
+        this.group = group;
     }
 
     public Long getId() {
@@ -55,20 +54,12 @@ public class GroupMember {
         this.id = id;
     }
 
-    public Integer getGroupId() {
-        return groupId;
+    public String getMemberName() {
+        return memberName;
     }
 
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
     public LocalDateTime getJoinedAt() {
@@ -77,6 +68,14 @@ public class GroupMember {
 
     public void setJoinedAt(LocalDateTime joinedAt) {
         this.joinedAt = joinedAt;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
 }

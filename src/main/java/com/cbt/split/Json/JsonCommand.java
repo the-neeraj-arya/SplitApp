@@ -27,6 +27,10 @@ public class JsonCommand {
         return this.jsonObject.getAsJsonPrimitive(paramName).getAsLong();
     }
 
+    public Integer IntegerValueOfParameterNamed(String paramName) {
+        return this.jsonObject.getAsJsonPrimitive(paramName).getAsInt();
+    }
+    
     public JsonArray arrayOfParameterNamed(String paramName) {
         return this.jsonObject.getAsJsonArray(paramName);
     }

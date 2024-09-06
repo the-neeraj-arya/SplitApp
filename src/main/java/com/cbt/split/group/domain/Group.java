@@ -5,6 +5,7 @@
 package com.cbt.split.group.domain;
 
 import com.cbt.split.user.domain.User;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,8 +13,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,24 +37,22 @@ public class Group {
     @Column(nullable = false, unique = true)
     private String description;
 
-    @Column(name = "group_member", nullable = false, unique = true)
-    private int member;
-
-    @ManyToOne
-    @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
+    @Column(name = "created_by", nullable = false)
+    private Integer createdBy;
 
     @Column(name = "created_at", nullable = false, unique = true)
     private LocalDateTime createdAt;
 
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Members> members = new ArrayList<>();
+
     public Group() {
     }
 
-    public Group(int id, String name, String description, int member, User createdBy, LocalDateTime createdAt) {
+    public Group(int id, String name, String description, Integer createdBy, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.member = member;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
     }
@@ -79,19 +81,11 @@ public class Group {
         this.description = description;
     }
 
-    public int getMember() {
-        return member;
-    }
-
-    public void setMember(int member) {
-        this.member = member;
-    }
-
-    public User getCreatedBy() {
+    public Integer getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(Integer createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -103,4 +97,21 @@ public class Group {
         this.createdAt = createdAt;
     }
 
+    public List<Members> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Members> members) {
+        this.members = members;
+    }
+
+    public void addMembers(Members member) {
+        members.add(member);
+        member.setGroup(this);
+    }
+
+    public void removeMember(Members member) {
+        members.remove(member);
+        member.setGroup(null);
+    }
 }

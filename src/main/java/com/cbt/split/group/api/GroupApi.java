@@ -5,8 +5,6 @@
 package com.cbt.split.group.api;
 
 import com.cbt.split.Json.JsonCommand;
-import com.cbt.split.group.data.GroupData;
-import com.cbt.split.group.domain.Group;
 import com.cbt.split.group.service.SplitGroupWritePlatformService;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -34,12 +32,10 @@ public class GroupApi {
     public ResponseEntity<String> createGroup(@RequestBody String jsonString) {
         try {
             System.out.println("create group ............");
-
             JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
             JsonCommand command = new JsonCommand(jsonObject);
 
             this.splitGroupWritePlatformService.createGroup(command);
-//            return new ResponseEntity<>(groupdata, HttpStatus.CREATED);
             return new ResponseEntity<>("Group processed successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

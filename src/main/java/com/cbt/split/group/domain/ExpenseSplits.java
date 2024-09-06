@@ -79,5 +79,5 @@ public class ExpenseSplits {
     public void setOwedAmount(BigDecimal owedAmount) {
         this.owedAmount = owedAmount;
     }
-    
+
 }
