@@ -5,6 +5,9 @@
 package com.cbt.split.group.service;
 
 import com.cbt.split.Json.JsonCommand;
+import com.cbt.split.group.data.GroupDataPojo;
+import com.cbt.split.group.data.MembersPojo;
+import java.util.List;
 
 /**
  *
@@ -13,5 +16,9 @@ import com.cbt.split.Json.JsonCommand;
 public interface SplitGroupWritePlatformService {
 
     public void createGroup(JsonCommand command);
+
+    public List<GroupDataPojo> getGroups();
+    
+    public List<MembersPojo> getMembers(String groupName);
 
 }

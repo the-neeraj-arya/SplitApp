@@ -4,12 +4,14 @@
  */
 package com.cbt.split.group.domain;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author neeraj
  */
-public interface SplitGroupRepository extends CrudRepository<Group, Integer> {
-
+public interface MemberRepository extends JpaRepository<Members, Long>{
+    
+    List<Members> findByGroupName(String group);
 }

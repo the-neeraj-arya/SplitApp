@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 public class GroupMember {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JoinColumn(name = "group_id", nullable = false)
